@@ -16,7 +16,7 @@
  * Algorithms for Molecular Biology 10, 5. (http://www.almob.org/content/10/1/5/abstract)
  *
  *
- * @author: Lars Hahn - 23.08.2017, Georg-August-Universitaet Goettingen
+ * @author: Lars Hahn - 23.08.2017, Georg-August-Universität Goettingen
  * @version: 1.4.0 08/2017
  */
 #include <iostream>
