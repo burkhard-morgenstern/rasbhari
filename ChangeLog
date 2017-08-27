@@ -1,0 +1,174 @@
+2017-08-23-v1.4.0    Lars Hahn    <lhahn@biolgie.uni-goettingen.de>
+    * Main.cpp: Adjusted new rasbhari implementation function call.
+        '--help' and '--version' now parsed before rasbhari parameter parsing.
+
+    * rasopt.hpp: A new header for the new rasbhari options namespace.
+
+    * rasopt.cpp: A new namespace for all relevant rasbhari options to be set 
+        global in its own namespace.
+
+    * rasbimp.hpp: A new header for the new rasbhari implementation namespace.
+
+    * rasbimp.cpp: A new namespace for an easier implementation of the rasbhari
+        functionality. Only Options have to be set and the correct function has
+        to be choosen.
+
+    * rasbhari.hpp: A new header for the new rasbhari class.
+
+    * rasbhari.cpp: A new class that comprises all necessary functions and
+        variables neccessary for the rasbhari approach. Stored is the 
+        patternset, its coefficient (OC/Var) and its sensitivity (if calculated)
+
+    * rasbcomp.hpp: A new header for the new rasbhari computation namespace.
+
+    * rasbcomp.cpp: A new namespace that holds the entire algorithms for the
+        OverlaptComplexity and Variance. In its own namespace the overlap aspect
+        can be used in different approaches using only this namespace.
+
+    * speedsens.hpp: A new header for the new sensitivity calculation of SpEED.
+
+    * speedsens.cpp: Here the sensitivty calculation of SpEED is wrapped into
+        it's own namespace to show, that this part is done by the work of
+        Ilie&Ilie and extracted from their spaced seed optimisation program
+        SpEED.
+
+    * sensmem.hpp: A new header for the new sensitivity memory observation header.
+
+    * sensmem.hpp: A namespace that holds special unix functions to observe the
+        memory currently used. It was realised to stop the program from entering
+        the swap-memory and extremly slowing down without the users permission.
+        At this point, the user can save important data, if he wants to hardly 
+        restart the operating system.
+
+    * patternset.hpp: A new header for the new approach of the patternset class.
+
+    * patternset.cpp: The patternset class has been completely redefined to a 
+        new class, where the actual pattern are outsourced into a new pattern
+        class.
+
+    * pattern.hpp: A new header for the new pattern class.
+
+    * pattern.cpp: A new class that holds all neccessary functions that can/
+        have/should be executed on a pattern instance.
+
+
+2016-10-19-v1.3.0    Lars Hahn    <lhahn@biolgie.uni-goettingen.de>
+    * Main.cpp: Chaning maximum and minimum DC value print output.
+        Adding a 'version' and 'help' parameter and updating the help
+        output.
+
+    * Patternset.cpp
+        (CreateLengths): DC boundary calculation with intervals updated correctly.
+        (SetSeed): New function to set the seed for the random generator.
+
+    * Patternset.h:
+        (SetSeed): New function to set the seed for the random generator.
+
+    * Variance.cpp
+        (Init): New seed parameter added.
+
+    * Variance.h
+        (Init): New seed parameter added.
+    
+    * Sensitivity.h: Adding new prototypes and instance variable memvalue.
+        Also new librarys.
+        (Init): New seed parameter added.
+
+    * Sensitivity.cpp
+        (CalculateSensitivity): Remove return value, using instance variable,
+            adding try-catch block for sensitivity calculation and
+            a special output for a time consuming calculation.
+        (AvailableMemory): A new function, which checks the amount of free
+            available memory (no swap) in total.
+        (CheckMemory): Overhead function which organizes the memory check and
+            and user interaction.
+        (MULTIPLE_SENSITIVITY2): Adding the CheckMemory function before each
+            'new' statement for the current memory usage.
+        (Init): New seed parameter added.
+    * Sensitivity.cpp
+        (CalculateSensitivity): Remove return value.
+        (Init): New seed parameter added.
+
+
+2016-08-25-v1.2.1    Lars Hahn    <lhahn@biolgie.uni-goettingen.de>
+    * Patternset.h:
+        Adding library <random>
+
+    * Patternset.cpp
+        (SetImprove): Changing pattern_improve create paramter
+        (VerifyPatternCondition): Resetting options for variable 'pattern_error'.
+            Solving read problem for file in correct format.
+
+    * Main.cpp: 
+        Adding library <cstdint>
+
+
+2016-05-12-v1.2.0    Lars Hahn    <lhahn@biolgie.uni-goettingen.de>
+    * main.cpp
+        (sensitivity_obj): now generated on the stack, no heap pointer.    
+
+    * variance.cpp
+        (Ctor): removed; initialization seperated;
+        (variance): Constructors extracted from 'Ctor', class variables setted.
+        (InitVarMatrix,InitVar): removed, separated to InitVariance,SetVariance.
+        (SetVariance): New function added.
+        (UpdateVariance): removed, integrated efficiently in 'improve' function.
+        (ReInitVariance): removed, integrated in 'ReInit' function.
+        (ImproveOC): removed, integraded in 'UpdateVariance' function and 'OC' bool.
+        (Gaus): removed, integrated into patternset.cpp
+        (SetPatOrder): removed, integrated in set 'variance_set' as sorted tree.
+        (GetL1,GetL2,GetLHom): removed, not necessary.
+        (Init): Initializtion removed from constructor, a new function.
+
+    * variance.h
+        (RandPatLength): removed, boolean in 'Init'.
+        (var_sum): changed to var_mat.
+        (pattern_order, pattern_order_sort): removed, integrated in set 'variance_set'.
+        (isInFile,isOutFile): new bool as file flag.
+        (pattern_set): now generated on the stack, no heap pointer.
+        (l1,l2,lhom): a new variable 'seq_leng';
+
+    * patternset.cpp
+        (SymbolRandPos,SymbolCalcPos,GetSymbol): removed, integrated in 'GetSymbolPos'.
+        (IsSetScore): removed.
+        (ValidatePatternFormat): removed, integrated in 'CheckParams'.
+        (ChangeBits): renamed in 'ChangeBitsRandom'.
+        (GetImprove): New function returns bool-vector.
+        (GetValue): removed and integrated to 'GetPattern';
+        (GetBidMode): New function for variable 'bitmode'.
+        (GetLengthMean): removed;
+        (CreateRandomPattern): renamed in 'CreatePattern'.
+        (UniqBit): new function.
+
+    * patternset.h
+        (bitmode): a new flag to change between bitmode or not, for pattern with
+            length more then 64.
+
+    * extkey.cpp:
+        removed; exchanged by set object
+
+    * extkey.h:
+        removed; exchanged by set object
+
+
+2016-04-13-v1.1.0    Lars Hahn    <lhahn@biolgie.uni-goettingen.de>
+    * main.cpp: variance, sensitivty and patternset structur extracted.
+
+    * sensitivity.cpp: a new class, contains functions for pattern sensitvity.
+
+    * sensitivity.h: a new class header, for 'sensitivity.cpp', implements 'variance.h'.
+
+    * variance.cpp: a new class, contains functions for pattern variance and OC.
+
+    * variance.h: a new class header, for 'variance.cpp', implements 'patternset.h'
+        and 'extkey.h'
+
+    * patternset.cpp: a new class, contains functions for pattern creation and 
+        modification.
+
+    * patternset.h: a new class header, for 'variance.cpp'.
+
+    * extkey.cpp: a new class, elements consists of to entries and functions 
+        implemented for external sorting.
+    * extkey.cpp: a new class header, for 'extkey.cpp'
+

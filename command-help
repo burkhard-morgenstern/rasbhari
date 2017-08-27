@@ -1,0 +1,76 @@
+This programm calculates the variance/OC and/or the sensitivity of a set of pattern with the same weight.
+It is possible to improve your patternset and read patterns from a file.
+
+Compilation:
+    make
+
+Usage:
+    ./rasbhari              Print this help.
+
+    ./rasbhari {options}    (E.g.: ./rasbhari -m 10 -w 8 -d 6-15 -H 64 --permut 25000)
+
+Options:
+
+        --nosens:           Dectivate the sensitivity calculation.
+
+        --forcesens:        Force the sensitivity calculation ON YOUR OWN RISK!
+
+        --variance:         Change calculation from overlap complexity to variance.
+
+        --opt-oc [int]:     Creates [int] times new patternsets and tries to optimize them to best variance/oc; after modifying by '--permut [int]'.
+                                default: opt-oc = 100
+
+        --opt-sens [int]:   Creates [int] times new patternsets and tries to optimize them to best sensitivity; after variance/oc optimization.
+                                default: opt-sens = 5000
+
+        --notquiet:         Show each step of the improving mode.
+
+        --permut [int]:     Selects [int] times a specific pattern and tries to modify it randomly by permutation.
+                                default: permut = 25000
+
+    === Variance Parameters ===
+        -S [int]:           Sequence length of the dataset.
+                                default: S = 10000
+
+        -q [double]:        Background match probability; 0 < q <= 1.
+                                default: q = 0.25
+
+        -p [double]:        Match probability for a pair of 'homologous' positions; 0 < q <= p <= 1.
+                                default: p = 0.75
+
+        -H [int]:           Length of a possible homologue region on a dataset.
+                                default: H = 64
+
+    === Pattern Parameter ====
+        -m [int]:           Number of patterns, afterwards creating autopatternset.
+                                default: m = 10
+
+        -d [int]:           Number of don't care positions, afterwards creating autopatternset.
+           [int]-[int]:     Min. and max. number of don't care positions, afterwards creating autopatternset.
+                                default: d = (1/p)*weight                           {variance}
+                                default: d = [weight+3]-[2*(weight+3)]              {OC}
+                                patternlength = weight + don't care
+
+        -w [int]:           Pattern weight, afterwards creating autopatternset.
+                                default: w = 8
+
+        --pattern <File>:   Reading pattern from <File> in pattern format with '0' and '1', seperated by ','|' '|'.'|';'|'\n'|'\t'.
+
+
+        --outfile <File>:   Save the best pattern, its variance/oc and norm_variance/oc into <File>.
+
+    === Additional Parameters ====
+        --version:          Print the program version.
+
+        --help:             Print this help.
+
+
+
+
+___________________________________________________________________________________________________________________________________________
+version:
+    1.4.0 08/2017
+author:
+    Lars Hahn
+contact:
+    lhahn@biologie.uni-goettingen.de
